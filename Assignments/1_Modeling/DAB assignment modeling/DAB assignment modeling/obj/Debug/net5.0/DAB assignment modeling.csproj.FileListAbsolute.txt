@@ -1,0 +1,16 @@
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.exe
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.deps.json
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.runtimeconfig.json
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.runtimeconfig.dev.json
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.dll
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\ref\DAB assignment modeling.dll
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\bin\Debug\net5.0\DAB assignment modeling.pdb
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.csproj.AssemblyReference.cache
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.AssemblyInfoInputs.cache
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.AssemblyInfo.cs
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.csproj.CoreCompileInputs.cache
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.dll
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\ref\DAB assignment modeling.dll
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.pdb
+C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\obj\Debug\net5.0\DAB assignment modeling.genruntimeconfig.cache
