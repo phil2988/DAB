@@ -1,31 +1,16 @@
-﻿USE master
-go
-
-USE [master];
+﻿USE MASTER
 GO
 
-DECLARE @DatabaseID SMALLINT = DB_ID(N'MunicipalityDB');    
-DECLARE @SQL NVARCHAR(10);
+IF EXISTS (SELECT NAME FROM master.sys.databases WHERE NAME = N'MunicipalityDB')
+DROP DATABASE MunicipalityDB
+GO
 
-WHILE EXISTS ( SELECT
-                1
-               FROM
-                sys.dm_exec_sessions
-               WHERE
-                database_id = @DatabaseID )    
-    BEGIN;
-        SET @SQL = (
-                    SELECT TOP 1
-                        N'kill ' + CAST(session_id AS NVARCHAR(5)) + ';'
-                    FROM
-                        sys.dm_exec_sessions
-                    WHERE
-                        database_id = @DatabaseID
-                   );
-        EXEC sys.sp_executesql @SQL;
-    END;
+CREATE DATABASE MunicipalityDB
+GO
 
---DROP TABLE Room
+USE MunicipalityDB
+GO
+
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Room')
 CREATE TABLE [Room] (
     [roomKey] int not null,
@@ -35,7 +20,6 @@ CREATE TABLE [Room] (
     PRIMARY KEY ([roomKey])
 );
 
---DROP TABLE Location_Properties
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Location_Properties')
 CREATE TABLE [Location_Properties] (
   [propertyId] int identity(1, 1) not null,
@@ -85,13 +69,12 @@ CREATE TABLE [Municipality_Location] (
   PRIMARY KEY ([locationAdress]),
   CONSTRAINT [FK_Municipality_Location.roomKey]
     FOREIGN KEY ([roomKey])
-      REFERENCES [Room]([roomKey]),
+      REFERENCES [Room]([roomKey]) ON DELETE CASCADE,
   CONSTRAINT [FK_Municipality_Location.propertyId]
     FOREIGN KEY ([propertyId])
-      REFERENCES [Location_Properties]([propertyId])
+      REFERENCES [Location_Properties]([propertyId]) ON DELETE CASCADE
 );
 
---DROP TABLE Member
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Member')
 CREATE TABLE [Member] (
   [memberId] int identity(1, 1) not null,
@@ -102,7 +85,7 @@ CREATE TABLE [Member] (
   PRIMARY KEY ([memberId]),
   CONSTRAINT [FK_Member.locationAdress]
     FOREIGN KEY ([locationAdress])
-      REFERENCES [Municipality_Location]([locationAdress])
+      REFERENCES [Municipality_Location]([locationAdress]) ON DELETE CASCADE
 );
 
 --DROP TABLE Society
@@ -115,11 +98,11 @@ CREATE TABLE [Society] (
   PRIMARY KEY ([societyCvr]),
   CONSTRAINT [FK_Society.activityName]
     FOREIGN KEY ([activityName])
-      REFERENCES [Activity]([activityName]),
+      REFERENCES [Activity]([activityName]) ON DELETE CASCADE,
   CONSTRAINT [FK_Society.chairmanName]
     FOREIGN KEY ([chairmanName])
-      REFERENCES [Chairman]([chairmanName]),
+      REFERENCES [Chairman]([chairmanName]) ON DELETE CASCADE,
   CONSTRAINT [FK_Society.memberId]
     FOREIGN KEY ([memberId])
-      REFERENCES [Member]([memberId])
+      REFERENCES [Member]([memberId]) ON DELETE CASCADE
 );
