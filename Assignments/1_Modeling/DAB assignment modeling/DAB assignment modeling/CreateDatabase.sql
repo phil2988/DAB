@@ -1,23 +1,25 @@
 ﻿USE MASTER
 GO
 
-IF EXISTS (SELECT NAME FROM master.sys.databases WHERE NAME = N'MunicipalityDB')
-DROP DATABASE MunicipalityDB
+IF EXISTS (SELECT NAME FROM master.sys.databases WHERE NAME = N'au653164')
+DROP DATABASE au653164
 GO
 
-CREATE DATABASE MunicipalityDB
+IF NOT EXISTS (SELECT NAME FROM master.sys.databases WHERE NAME = N'au653164')
+CREATE DATABASE au653164
 GO
 
-USE MunicipalityDB
+USE au653164
 GO
 
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Room')
 CREATE TABLE [Room] (
-    [roomKey] int not null,
+    [roomId] int identity(1, 1) not null,
+    [_roomKey] int not null,
     [_maxMembers] int,
     [_roomAvailabilityStart] time,
     [_roomAvailabilityStop] time,
-    PRIMARY KEY ([roomKey])
+    PRIMARY KEY ([roomId])
 );
 
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Location_Properties')
@@ -33,7 +35,6 @@ CREATE TABLE [Location_Properties] (
   PRIMARY KEY ([propertyId])
 );
 
---DROP TABLE Chairman
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Chairman')
 CREATE TABLE [Chairman] (
   [chairmanName] nvarchar(50) not null,
@@ -44,35 +45,27 @@ CREATE TABLE [Chairman] (
   PRIMARY KEY ([chairmanName])
 );
 
---DROP TABLE Activity
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Activity')
 CREATE TABLE [Activity] (
   [activityName] nvarchar(50) not null,
   PRIMARY KEY ([activityName])
 );
 
---DROP TABLE Municipality
-IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Municipality')
-CREATE TABLE [Municipality] (
-  [societyCvr] int not null
-);
-
---DROP TABLE Municipality_Location
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Municipality_Location')
 CREATE TABLE [Municipality_Location] (
   [locationAdress] nvarchar(50) not null,
   [_maxMembers] int,
   [_locationAvailabilityStart] time,
   [_locationAvailabilityStop] time,
-  [roomKey] int,
+  [roomId] int,
   [propertyId] int,
   PRIMARY KEY ([locationAdress]),
-  CONSTRAINT [FK_Municipality_Location.roomKey]
-    FOREIGN KEY ([roomKey])
-      REFERENCES [Room]([roomKey]) ON DELETE CASCADE,
+  CONSTRAINT [FK_Municipality_Location.roomId]
+    FOREIGN KEY ([roomId])
+      REFERENCES [Room]([roomId]),
   CONSTRAINT [FK_Municipality_Location.propertyId]
     FOREIGN KEY ([propertyId])
-      REFERENCES [Location_Properties]([propertyId]) ON DELETE CASCADE
+      REFERENCES [Location_Properties]([propertyId])
 );
 
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Member')
@@ -85,10 +78,9 @@ CREATE TABLE [Member] (
   PRIMARY KEY ([memberId]),
   CONSTRAINT [FK_Member.locationAdress]
     FOREIGN KEY ([locationAdress])
-      REFERENCES [Municipality_Location]([locationAdress]) ON DELETE CASCADE
+      REFERENCES [Municipality_Location]([locationAdress]) 
 );
 
---DROP TABLE Society
 IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Society')
 CREATE TABLE [Society] (
   [societyCvr] int not null,
@@ -98,11 +90,20 @@ CREATE TABLE [Society] (
   PRIMARY KEY ([societyCvr]),
   CONSTRAINT [FK_Society.activityName]
     FOREIGN KEY ([activityName])
-      REFERENCES [Activity]([activityName]) ON DELETE CASCADE,
+      REFERENCES [Activity]([activityName]),
   CONSTRAINT [FK_Society.chairmanName]
     FOREIGN KEY ([chairmanName])
-      REFERENCES [Chairman]([chairmanName]) ON DELETE CASCADE,
+      REFERENCES [Chairman]([chairmanName]),
   CONSTRAINT [FK_Society.memberId]
     FOREIGN KEY ([memberId])
-      REFERENCES [Member]([memberId]) ON DELETE CASCADE
+      REFERENCES [Member]([memberId]) 
 );
+
+IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Municipality')
+CREATE TABLE [Municipality] (
+  [societyCvr] int not null
+  CONSTRAINT [FK_Municipality.societyCvr]
+    FOREIGN KEY ([societyCvr])
+      REFERENCES [Society]([societyCvr]),
+);
+

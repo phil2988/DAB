@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+//using System.IO;
 using Microsoft.Data.SqlClient;
 
 namespace DAB_assignment_modeling
@@ -8,14 +9,12 @@ namespace DAB_assignment_modeling
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Initializing Database...");
-
-            SqlController sqlController = new("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MunicipalityDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-
+            //SqlController sqlController = new(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MunicipalityDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlController sqlController = new(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //sqlController.Init();
             string c = "_name";
-            string p = "BoAndersen";
+            string p = "Sanne Andersen, ";
             sqlController.insertData("Member", c, p);
-            
         }
     }
 
@@ -27,6 +26,22 @@ namespace DAB_assignment_modeling
         {
             _connString = connString;
         }
+        
+        //public void Init()
+        //{
+        //    Console.WriteLine("Initializing database...");
+        //    string scrpt = File.ReadAllText(@"C:\Users\Phillip\Desktop\Skole\DAB\Assignments\1_Modeling\DAB assignment modeling\DAB assignment modeling\SQLQuery.sql");
+        //    SqlConnection connection = new(_connString);
+        //    SqlCommand command = new();
+
+        //    command.CommandText = scrpt;
+        //    command.Connection = connection;
+        //    command.CommandType = CommandType.Text;
+        //    connection.Open();
+        //    command.ExecuteNonQuery();
+        //    connection.Close();
+        //    Console.WriteLine("Database finished initializing!");
+        //}
 
         public void insertData(string tableName = "", string colums = "", string parameters = "")
         {
@@ -38,14 +53,11 @@ namespace DAB_assignment_modeling
             Console.WriteLine("Connection is now open!");
 
             Console.WriteLine("Preparing query command...");
-            SqlCommand command = new SqlCommand();
+            SqlCommand command = new();
 
-            //"INSERT INTO klant(klant_id,naam,voornaam) VALUES(@param1,@param2,@param3)"
             string query = ("INSERT INTO " + tableName);
             query += "(" + colums + ") ";
             query += ("VALUES('" + parameters + "')");
-
-            //command.Parameters.Add("INSERT INTO " + tableName + "(" + colums + ") VALUES(" + parameters + ")");
 
             command.Connection = conn;
             command.CommandText = query;
