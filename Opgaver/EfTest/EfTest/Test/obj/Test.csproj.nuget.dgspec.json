@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/Test/Test.csproj": {}
+  },
+  "projects": {
+    "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/EfIntroSolution.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/EfIntroSolution.csproj",
+        "projectName": "EfIntroSolution",
+        "projectPath": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/EfIntroSolution.csproj",
+        "packagesPath": "/home/henrik/.nuget/packages/",
+        "outputPath": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/henrik/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/Test/Test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/Test/Test.csproj",
+        "projectName": "Test",
+        "projectPath": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/Test/Test.csproj",
+        "packagesPath": "/home/henrik/.nuget/packages/",
+        "outputPath": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/Test/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/henrik/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/EfIntroSolution.csproj": {
+                "projectPath": "/home/henrik/Dev/VisualCodeProjects/I4DAB/E19/EfTest/EfIntro/EfIntroSolution.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[15.9.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.11.0, )"
+            },
+            "nunit": {
+              "target": "Package",
+              "version": "[3.11.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
