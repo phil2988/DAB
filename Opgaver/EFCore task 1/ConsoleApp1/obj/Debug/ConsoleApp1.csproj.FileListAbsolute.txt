@@ -1,0 +1,7 @@
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.AssemblyReference.cache
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+C:\Users\Phillip\Desktop\Skole\DAB\Opgaver\EFCore task 1\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
