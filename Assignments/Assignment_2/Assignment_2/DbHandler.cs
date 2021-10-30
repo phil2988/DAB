@@ -12,7 +12,7 @@ namespace Assignment_2
     {
         DbContext context;
        
-        public DbHandler(DbContext context)
+        public DbHandler(au653164Context context)
         {
             this.context = context;
             
