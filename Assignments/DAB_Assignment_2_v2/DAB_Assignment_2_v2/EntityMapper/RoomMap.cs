@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAB_Assignment_2_v2.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAB_Assignment_2_v2.EntityMapper
 {
-    class RoomMap
+    public class RoomMap : IEntityTypeConfiguration<Room>
+
     {
+        public void Configure(EntityTypeBuilder<Room> builder)
+        {
+            builder.HasKey(r => new { r.RoomKey, r.RoomAdress });
+        }
     }
 }

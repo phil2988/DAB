@@ -12,5 +12,7 @@ namespace DAB_Assignment_2_v2.Models
 
         public int RoomKey { get; set; }
         public string RoomAdress { get; set; }
+        public Member Member { get; set; }
+        public Guid MemberId { get; set; }
     }
 }
