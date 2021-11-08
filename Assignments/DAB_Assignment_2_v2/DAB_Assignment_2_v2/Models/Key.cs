@@ -8,5 +8,10 @@ namespace DAB_Assignment_2_v2.Models
 {
     class Key
     {
+        public Guid KeyId { get; set; }
+
+        public int RoomKey { get; set; }
+        public string RoomAdress { get; set; }
+        public Room Room { get; set; }
     }
 }
