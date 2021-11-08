@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj": {}
+    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj": {
+    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
-        "projectName": "DAB assignment modeling",
-        "projectPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
+        "projectUniqueName": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
+        "projectName": "DAB_Assignment_2_v2",
+        "projectPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
         "packagesPath": "C:\\Users\\phill\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\obj\\",
+        "outputPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\phill\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,16 +39,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.Data.SqlClient": {
-              "target": "Package",
-              "version": "[3.0.1, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.8.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

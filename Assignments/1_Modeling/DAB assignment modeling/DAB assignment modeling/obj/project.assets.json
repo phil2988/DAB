@@ -1778,24 +1778,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Phillip\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\phill\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Phillip\\Desktop\\Skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
+      "projectUniqueName": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
       "projectName": "DAB assignment modeling",
-      "projectPath": "C:\\Users\\Phillip\\Desktop\\Skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
-      "packagesPath": "C:\\Users\\Phillip\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Phillip\\Desktop\\Skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\obj\\",
+      "projectPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\DAB assignment modeling.csproj",
+      "packagesPath": "C:\\Users\\phill\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\1_Modeling\\DAB assignment modeling\\DAB assignment modeling\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Phillip\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\phill\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1845,7 +1840,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
