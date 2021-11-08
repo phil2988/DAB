@@ -8,5 +8,9 @@ namespace DAB_Assignment_2_v2.Models
 {
     class RoomBooking
     {
+        public Guid BookingId { get; set; }
+
+        public TimeSpan BookingSpan { get; set; }
+        public Member BookedBy { get; set; }
     }
 }
