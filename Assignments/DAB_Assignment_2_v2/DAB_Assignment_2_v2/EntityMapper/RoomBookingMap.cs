@@ -9,6 +9,8 @@ namespace DAB_Assignment_2_v2.EntityMapper
     {
         public void Configure(EntityTypeBuilder<RoomBooking> builder)
         {
+            builder.HasKey(r => r.BookingId);
+
             builder.HasOne(r => r.Room)
                  .WithMany(r => r.BookingIds)
                  .IsRequired(true)

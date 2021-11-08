@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mathiasmagnusson\\source\\repos\\DAB\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {}
+    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mathiasmagnusson\\source\\repos\\DAB\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {
+    "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathiasmagnusson\\source\\repos\\DAB\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
+        "projectUniqueName": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
         "projectName": "DAB_Assignment_2_v2",
-        "projectPath": "C:\\Users\\mathiasmagnusson\\source\\repos\\DAB\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
-        "packagesPath": "C:\\Users\\mathiasmagnusson\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathiasmagnusson\\source\\repos\\DAB\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\obj\\",
+        "projectPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2.csproj",
+        "packagesPath": "C:\\Users\\phill\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\DAB_Assignment_2_v2\\DAB_Assignment_2_v2\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mathiasmagnusson\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\phill\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,6 +41,22 @@
           "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.0, )"
             }

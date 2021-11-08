@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAB_Assignment_2_v2.EntityMapper
 {
-    public class MunicipalityMap : IEntityTypeConfiguration<MunicipalityMap>
+    public class MunicipalityMap : IEntityTypeConfiguration<Municipality>
 
     {
-        public void Configure(EntityTypeBuilder<MunicipalityMap> builder)
+        public void Configure(EntityTypeBuilder<Municipality> builder)
         {
+            builder.HasKey(m => m.MunicipalityId);
 
         }
     }
