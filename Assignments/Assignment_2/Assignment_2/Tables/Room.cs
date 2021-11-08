@@ -17,13 +17,10 @@ namespace Assignment_2.Tables
         public int? MaxMembers { get; set; }
         public TimeSpan? RoomAvailabilityStart { get; set; }
         public TimeSpan? RoomAvailabilityStop { get; set; }
-        public string BookedByName { get; set; }
-        public string BookedBySociety { get; set; }
-        public TimeSpan? BookedStart { get; set; }
-        public TimeSpan? BookedStop { get; set; }
         public string LocationAdress { get; set; }
-
         public virtual MunicipalityLocation LocationAdressNavigation { get; set; }
         public virtual ICollection<Member> Members { get; set; }
+
+        public virtual RoomBooking RoomBookings { get; set; }
     }
 }

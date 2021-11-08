@@ -4,14 +4,16 @@ using Assignment_2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment_2.Migrations
 {
     [DbContext(typeof(au653164Context))]
-    partial class au653164ContextModelSnapshot : ModelSnapshot
+    [Migration("20211105100137_0.4")]
+    partial class _04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

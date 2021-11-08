@@ -32,12 +32,12 @@ namespace Assignment_2
                 case ConsoleKey.D1:
                     rooms = dbRoomHandler.GetTable();
 
-                    foreach (var room in rooms)
-                    {
-                        if (room.BookedByName == null)
-                            Console.WriteLine("Adress of Room with id {0} is {1} and its room number is {2}", room.RoomId, room.LocationAdress, room.RoomKey);
-                        
-                    }
+                    //foreach (var room in rooms)
+                    //{
+                    //    if (room.BookedByName == null)
+                    //        Console.WriteLine("Adress of Room with id {0} is {1} and its room number is {2}", room.RoomId, room.LocationAdress, room.RoomKey);
+
+                    //}
 
                     Console.WriteLine();
                     goto programStart;

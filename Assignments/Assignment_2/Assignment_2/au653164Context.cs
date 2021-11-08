@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Assignment_2.Tables;
+using MongoDB.Driver;
+
 
 #nullable disable
 
@@ -32,8 +34,9 @@ namespace Assignment_2
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=au653164;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseSqlServer(
+                    @"Data Source=(localdb)\MSSQLLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+                );
             }
         }
 
@@ -184,17 +187,7 @@ namespace Assignment_2
 
                 entity.Property(e => e.RoomId).HasColumnName("roomId");
 
-                entity.Property(e => e.BookedByName)
-                    .HasMaxLength(50)
-                    .HasColumnName("_bookedByName");
-
-                entity.Property(e => e.BookedBySociety)
-                    .HasMaxLength(50)
-                    .HasColumnName("_bookedBySociety");
-
-                entity.Property(e => e.BookedStart).HasColumnName("_bookedStart");
-
-                entity.Property(e => e.BookedStop).HasColumnName("_bookedStop");
+                //entity.Property(e => e.RoomBookings).HasColumnName("roomBookings");
 
                 entity.Property(e => e.LocationAdress)
                     .IsRequired()
@@ -214,8 +207,14 @@ namespace Assignment_2
                     .HasForeignKey(d => d.LocationAdress)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Room.locationAdress");
-            });
 
+                entity.HasOne(d => d.RoomBookings)
+                    .WithMany(p => p.Room)
+                    .HasForeignKey(d => d.RoomId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Room.RoomId");
+            });
+            
             modelBuilder.Entity<Society>(entity =>
             {
                 entity.HasKey(e => e.SocietyCvr)
