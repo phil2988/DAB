@@ -14,5 +14,10 @@ namespace DAB_Assignment_2_v2.Models
 
         public Guid AcivityId { get; set; }
         public Activity Activity { get; set; }
+
+        public Guid MuniciplaityId { get; set; }
+        public Municipality Municipality { get; set; }
+
+        public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }
     }
 }
