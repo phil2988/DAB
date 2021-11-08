@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAB_Assignment_2_v2.Models
 {
-    class RoomProperties
+    public class RoomProperties
     {
         public Guid PropertyId{ get; set; }
 
@@ -19,5 +19,7 @@ namespace DAB_Assignment_2_v2.Models
         public bool SoundSystem { get; set; }
         public bool Tables { get; set; }
         public bool Whiteboard { get; set; }
+
+        public Room Room { get; set; }
     }
 }

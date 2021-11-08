@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAB_Assignment_2_v2.Models
 {
-    class Room
+    public class Room
     {
         public int RoomKey { get; set; }
         public string RoomAdress { get; set; }
@@ -15,7 +15,9 @@ namespace DAB_Assignment_2_v2.Models
         public TimeSpan RoomAvailability { get; set; }
 
         public int PropertyId { get; set; }
-        public int BookingId { get; set; }
+        
+        public ICollection<RoomBooking> BookingIds { get; set; }
+
         public Key Key { get; set; }
     }
 }
