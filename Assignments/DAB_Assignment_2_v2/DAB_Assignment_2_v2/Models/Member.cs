@@ -17,6 +17,6 @@ namespace DAB_Assignment_2_v2.Models
         public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }
 
         public Guid KeyId {get;set;}
-        //public Key Key { get; set; }
+        public ICollection<Key> Keys { get; set; }
     }
 }

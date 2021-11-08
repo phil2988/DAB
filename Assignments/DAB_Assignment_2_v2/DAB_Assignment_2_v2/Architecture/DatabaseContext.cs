@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAB_Assignment_2_v2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAB_Assignment_2_v2.Architecture
 {
-    class DatabaseContext
+    public class DatabaseContext : DbContext
     {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"server=(localdb)\MSSQLLocalDB;database=BookstoreDB;Trusted_Connection=true");
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
     }
 }

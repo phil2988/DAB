@@ -11,6 +11,6 @@ namespace DAB_Assignment_2_v2.Models
         public Guid MunicipalityId { get; set; }
 
         public Guid SocietyId { get; set; }
-        public Society Society { get; set; }
+        public ICollection<Society> Societies { get; set; }
     }
 }

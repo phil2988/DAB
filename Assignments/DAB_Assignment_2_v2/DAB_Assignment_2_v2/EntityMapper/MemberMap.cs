@@ -4,12 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAB_Assignment_2_v2.EntityMapper
 {
-    public class MemberMap : IEntityTypeConfiguration<MemberMap>
+    public class MemberMap : IEntityTypeConfiguration<Member>
 
     {
-        public void Configure(EntityTypeBuilder<MemberMap> builder)
+        public void Configure(EntityTypeBuilder<Member> builder)
         {
+            builder.HasKey(m => m.MemberId);
+            builder.Property(m => m.MemberId).ValueGeneratedOnAdd();
 
+            builder.HasMany(m => m.Keys);
         }
     }
 }
