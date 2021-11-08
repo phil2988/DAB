@@ -1,4 +1,4 @@
-﻿using DAB_Assignment_2_v2.Models;
+﻿using DAB_Assignment_2_v2.EntityMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAB_Assignment_2_v2.Architecture
@@ -12,7 +12,15 @@ namespace DAB_Assignment_2_v2.Architecture
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.ApplyConfiguration(new ActivityMap())
+                .ApplyConfiguration(new SocietyMap())
+                .ApplyConfiguration(new MunicipalityMap())
+                .ApplyConfiguration(new RoomBookingMap())
+                .ApplyConfiguration(new RoomPropertiesMap())
+                .ApplyConfiguration(new RoomMap())
+                .ApplyConfiguration(new KeyMap())
+                .ApplyConfiguration(new MemberMap())
+                .ApplyConfiguration(new SocietyMemberRelationsMap());
         }
     }
 }

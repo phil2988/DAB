@@ -12,7 +12,9 @@ namespace DAB_Assignment_2_v2.EntityMapper
             builder.HasKey(m => m.MemberId);
             builder.Property(m => m.MemberId).ValueGeneratedOnAdd();
 
-            builder.HasMany(m => m.Keys);
+            builder.HasMany(m => m.Keys)
+                .WithOne(k => k.Member)
+                .HasForeignKey(m => m.KeyId);
         }
     }
 }
