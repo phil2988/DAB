@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAB_Assignment_2_v2.Models
 {
-    class Activity
+    public class Activity
     {
+        public Guid ActivityId { get; set; }
+        public string AcitivtyName { get; set; }
     }
 }

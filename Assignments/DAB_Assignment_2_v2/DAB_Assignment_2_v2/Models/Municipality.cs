@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAB_Assignment_2_v2.Models
 {
-    class Municipality
+    public class Municipality
     {
+        public Guid MunicipalityId { get; set; }
+
+        public Guid SocietyId { get; set; }
+        public Society Society { get; set; }
     }
 }
