@@ -39,7 +39,7 @@ namespace DAB_Assignment_2_v2.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    RoomKey = table.Column<int>(type: "int", nullable: false),
+                    RoomKey = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomAdress = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MaxMembers = table.Column<int>(type: "int", nullable: false),
                     RoomAvailability = table.Column<TimeSpan>(type: "time", nullable: false),

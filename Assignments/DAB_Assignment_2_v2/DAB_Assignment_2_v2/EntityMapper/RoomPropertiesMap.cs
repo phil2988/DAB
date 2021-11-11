@@ -10,6 +10,7 @@ namespace DAB_Assignment_2_v2.EntityMapper
         public void Configure(EntityTypeBuilder<RoomProperties> builder)
         {
             builder.HasKey(p => p.PropertyId);
+            builder.Property(r => r.PropertyId).HasColumnType("uniqueidentifier");
             builder.Property(p => p.PropertyId).ValueGeneratedOnAdd();
             
         }

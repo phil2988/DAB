@@ -19,7 +19,5 @@ namespace DAB_Assignment_2_v2.Models
         public bool SoundSystem { get; set; }
         public bool Tables { get; set; }
         public bool Whiteboard { get; set; }
-
-        public Room Room { get; set; }
     }
 }
