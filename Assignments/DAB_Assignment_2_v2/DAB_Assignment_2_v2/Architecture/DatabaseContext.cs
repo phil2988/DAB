@@ -16,16 +16,9 @@ namespace DAB_Assignment_2_v2.Architecture
         public DbSet<Society> Society { get; set; }
         public DbSet<SocietyMemberRelations> SocietyMemberRelations { get; set; }
 
-        public DatabaseContext()
-        {
-            
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            
-            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +32,8 @@ namespace DAB_Assignment_2_v2.Architecture
                 .ApplyConfiguration(new KeyMap())
                 .ApplyConfiguration(new MemberMap())
                 .ApplyConfiguration(new SocietyMemberRelationsMap());
+
+            modelBuilder.Entity<Society>().Ignore(e => e.Chairman);
         }
     }
 }
