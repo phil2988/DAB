@@ -14,9 +14,10 @@ namespace DAB_Assignment_2_v2.Models
         public int Cpr { get; set; }
         public bool IsChairman { get; set; }
 
-        public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }
-
         public Guid KeyId {get;set;}
         public ICollection<Key> Keys { get; set; }
+
+        public ICollection<Society> Societies { get; set; }
+
     }
 }

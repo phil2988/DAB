@@ -3,10 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAB_Assignment_2_v2.Migrations
 {
-    public partial class _01_Initial_Migration : Migration
+    public partial class Initial_Migration2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Activity",
+                columns: table => new
+                {
+                    ActivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AcitivtyName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activity", x => x.ActivityId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
@@ -39,15 +51,46 @@ namespace DAB_Assignment_2_v2.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    RoomKey = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoomKey = table.Column<int>(type: "int", nullable: false),
                     RoomAdress = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MaxMembers = table.Column<int>(type: "int", nullable: false),
                     RoomAvailability = table.Column<TimeSpan>(type: "time", nullable: false),
-                    PropertyId = table.Column<int>(type: "int", nullable: false)
+                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Room", x => new { x.RoomKey, x.RoomAdress });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomProperties",
+                columns: table => new
+                {
+                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CoffeeMachine = table.Column<bool>(type: "bit", nullable: false),
+                    Water = table.Column<bool>(type: "bit", nullable: false),
+                    Toilet = table.Column<bool>(type: "bit", nullable: false),
+                    Chairs = table.Column<bool>(type: "bit", nullable: false),
+                    Wifi = table.Column<bool>(type: "bit", nullable: false),
+                    SoccerGoals = table.Column<bool>(type: "bit", nullable: false),
+                    SoundSystem = table.Column<bool>(type: "bit", nullable: false),
+                    Tables = table.Column<bool>(type: "bit", nullable: false),
+                    Whiteboard = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomProperties", x => x.PropertyId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SocietyMemberRelations",
+                columns: table => new
+                {
+                    SocietyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
                 });
 
             migrationBuilder.CreateTable(
@@ -78,12 +121,19 @@ namespace DAB_Assignment_2_v2.Migrations
                     Cvr = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AcivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ActivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MuniciplaityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MunicipalityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Society", x => x.SocietyId);
+                    table.ForeignKey(
+                        name: "FK_Society_Activity_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activity",
+                        principalColumn: "ActivityId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Society_Municipality_MunicipalityId",
                         column: x => x.MunicipalityId,
@@ -120,81 +170,33 @@ namespace DAB_Assignment_2_v2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoomProperties",
+                name: "MemberSociety",
                 columns: table => new
                 {
-                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CoffeeMachine = table.Column<bool>(type: "bit", nullable: false),
-                    Water = table.Column<bool>(type: "bit", nullable: false),
-                    Toilet = table.Column<bool>(type: "bit", nullable: false),
-                    Chairs = table.Column<bool>(type: "bit", nullable: false),
-                    Wifi = table.Column<bool>(type: "bit", nullable: false),
-                    SoccerGoals = table.Column<bool>(type: "bit", nullable: false),
-                    SoundSystem = table.Column<bool>(type: "bit", nullable: false),
-                    Tables = table.Column<bool>(type: "bit", nullable: false),
-                    Whiteboard = table.Column<bool>(type: "bit", nullable: false),
-                    RoomKey = table.Column<int>(type: "int", nullable: true),
-                    RoomAdress = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    MembersMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SocietiesSocietyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoomProperties", x => x.PropertyId);
+                    table.PrimaryKey("PK_MemberSociety", x => new { x.MembersMemberId, x.SocietiesSocietyId });
                     table.ForeignKey(
-                        name: "FK_RoomProperties_Room_RoomKey_RoomAdress",
-                        columns: x => new { x.RoomKey, x.RoomAdress },
-                        principalTable: "Room",
-                        principalColumns: new[] { "RoomKey", "RoomAdress" },
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Activity",
-                columns: table => new
-                {
-                    ActivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AcitivtyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SocietyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Activity", x => x.ActivityId);
-                    table.ForeignKey(
-                        name: "FK_Activity_Society_SocietyId",
-                        column: x => x.SocietyId,
-                        principalTable: "Society",
-                        principalColumn: "SocietyId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SocietyMemberRelations",
-                columns: table => new
-                {
-                    SocietyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SocietyMemberRelations", x => new { x.MemberId, x.SocietyId });
-                    table.ForeignKey(
-                        name: "FK_SocietyMemberRelations_Member_MemberId",
-                        column: x => x.MemberId,
+                        name: "FK_MemberSociety_Member_MembersMemberId",
+                        column: x => x.MembersMemberId,
                         principalTable: "Member",
                         principalColumn: "MemberId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SocietyMemberRelations_Society_SocietyId",
-                        column: x => x.SocietyId,
+                        name: "FK_MemberSociety_Society_SocietiesSocietyId",
+                        column: x => x.SocietiesSocietyId,
                         principalTable: "Society",
                         principalColumn: "SocietyId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activity_SocietyId",
-                table: "Activity",
-                column: "SocietyId",
-                unique: true);
+                name: "IX_MemberSociety_SocietiesSocietyId",
+                table: "MemberSociety",
+                column: "SocietiesSocietyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomBooking_BookedByMemberId",
@@ -207,28 +209,23 @@ namespace DAB_Assignment_2_v2.Migrations
                 columns: new[] { "RoomKey", "RoomAdress" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoomProperties_RoomKey_RoomAdress",
-                table: "RoomProperties",
-                columns: new[] { "RoomKey", "RoomAdress" });
+                name: "IX_Society_ActivityId",
+                table: "Society",
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Society_MunicipalityId",
                 table: "Society",
                 column: "MunicipalityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SocietyMemberRelations_SocietyId",
-                table: "SocietyMemberRelations",
-                column: "SocietyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Activity");
+                name: "Key");
 
             migrationBuilder.DropTable(
-                name: "Key");
+                name: "MemberSociety");
 
             migrationBuilder.DropTable(
                 name: "RoomBooking");
@@ -240,13 +237,16 @@ namespace DAB_Assignment_2_v2.Migrations
                 name: "SocietyMemberRelations");
 
             migrationBuilder.DropTable(
-                name: "Room");
+                name: "Society");
 
             migrationBuilder.DropTable(
                 name: "Member");
 
             migrationBuilder.DropTable(
-                name: "Society");
+                name: "Room");
+
+            migrationBuilder.DropTable(
+                name: "Activity");
 
             migrationBuilder.DropTable(
                 name: "Municipality");

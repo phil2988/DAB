@@ -9,9 +9,9 @@ namespace DAB_Assignment_2_v2.Models
     public class SocietyMemberRelations
     {
         public Guid SocietyId { get; set; }
-        public Society Society { get; set; }
+        public ICollection<Society> Society { get; set; }
 
         public Guid MemberId { get; set; }
-        public Member Member { get; set; }
+        public ICollection<Member> Member { get; set; }
     }
 }

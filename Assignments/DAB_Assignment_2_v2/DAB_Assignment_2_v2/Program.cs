@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAB_Assignment_2_v2.Architecture;
+using System;
 
 namespace DAB_Assignment_2_v2
 {
@@ -6,7 +7,11 @@ namespace DAB_Assignment_2_v2
     {
         static void Main(string[] args)
         {
-            
+            DatabaseContext dbcontext = new();
+            DbHandler dbhandler = new(dbcontext);
+
+            dbhandler.SeedData();
+
             Console.WriteLine("Hello World!");
         }
     }

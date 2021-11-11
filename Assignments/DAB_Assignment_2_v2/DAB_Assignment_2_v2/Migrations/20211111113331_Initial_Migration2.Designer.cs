@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211108142839_0.1_Initial_Migration")]
-    partial class _01_Initial_Migration
+    [Migration("20211111113331_Initial_Migration2")]
+    partial class Initial_Migration2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,13 +30,7 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<string>("AcitivtyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SocietyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ActivityId");
-
-                    b.HasIndex("SocietyId")
-                        .IsUnique();
 
                     b.ToTable("Activity");
                 });
@@ -111,8 +105,8 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<int>("MaxMembers")
                         .HasColumnType("int");
 
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<TimeSpan>("RoomAvailability")
                         .HasColumnType("time");
@@ -162,12 +156,6 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<bool>("CoffeeMachine")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoomAdress")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("RoomKey")
-                        .HasColumnType("int");
-
                     b.Property<bool>("SoccerGoals")
                         .HasColumnType("bit");
 
@@ -191,8 +179,6 @@ namespace DAB_Assignment_2_v2.Migrations
 
                     b.HasKey("PropertyId");
 
-                    b.HasIndex("RoomKey", "RoomAdress");
-
                     b.ToTable("RoomProperties");
                 });
 
@@ -203,6 +189,9 @@ namespace DAB_Assignment_2_v2.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AcivityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ActivityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
@@ -219,6 +208,8 @@ namespace DAB_Assignment_2_v2.Migrations
 
                     b.HasKey("SocietyId");
 
+                    b.HasIndex("ActivityId");
+
                     b.HasIndex("MunicipalityId");
 
                     b.ToTable("Society");
@@ -232,22 +223,22 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<Guid>("SocietyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MemberId", "SocietyId");
-
-                    b.HasIndex("SocietyId");
-
                     b.ToTable("SocietyMemberRelations");
                 });
 
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.Activity", b =>
+            modelBuilder.Entity("MemberSociety", b =>
                 {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Society", "Society")
-                        .WithOne("Activity")
-                        .HasForeignKey("DAB_Assignment_2_v2.Models.Activity", "SocietyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("MembersMemberId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Navigation("Society");
+                    b.Property<Guid>("SocietiesSocietyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MembersMemberId", "SocietiesSocietyId");
+
+                    b.HasIndex("SocietiesSocietyId");
+
+                    b.ToTable("MemberSociety");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Key", b =>
@@ -278,48 +269,39 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.RoomProperties", b =>
-                {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomKey", "RoomAdress");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Society", b =>
                 {
+                    b.HasOne("DAB_Assignment_2_v2.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId");
+
                     b.HasOne("DAB_Assignment_2_v2.Models.Municipality", "Municipality")
                         .WithMany("Societies")
                         .HasForeignKey("MunicipalityId");
 
+                    b.Navigation("Activity");
+
                     b.Navigation("Municipality");
                 });
 
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.SocietyMemberRelations", b =>
+            modelBuilder.Entity("MemberSociety", b =>
                 {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Member", "Member")
-                        .WithMany("SocietyMemberRelations")
-                        .HasForeignKey("MemberId")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Member", null)
+                        .WithMany()
+                        .HasForeignKey("MembersMemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAB_Assignment_2_v2.Models.Society", "Society")
-                        .WithMany("SocietyMemberRelations")
-                        .HasForeignKey("SocietyId")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Society", null)
+                        .WithMany()
+                        .HasForeignKey("SocietiesSocietyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Member");
-
-                    b.Navigation("Society");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Member", b =>
                 {
                     b.Navigation("Keys");
-
-                    b.Navigation("SocietyMemberRelations");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Municipality", b =>
@@ -330,13 +312,6 @@ namespace DAB_Assignment_2_v2.Migrations
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Room", b =>
                 {
                     b.Navigation("BookingIds");
-                });
-
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.Society", b =>
-                {
-                    b.Navigation("Activity");
-
-                    b.Navigation("SocietyMemberRelations");
                 });
 #pragma warning restore 612, 618
         }
