@@ -4,14 +4,16 @@ using DAB_Assignment_2_v2.Architecture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211115084631_0.2_Time_Updates")]
+    partial class _02_Time_Updates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +38,9 @@ namespace DAB_Assignment_2_v2.Migrations
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Key", b =>
                 {
                     b.Property<Guid>("KeyId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MemberId")
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoomAdress")
@@ -49,8 +50,6 @@ namespace DAB_Assignment_2_v2.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("KeyId");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("Key");
                 });
@@ -142,9 +141,10 @@ namespace DAB_Assignment_2_v2.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("RoomAdress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("RoomKey")
+                    b.Property<int>("RoomKey")
                         .HasColumnType("int");
 
                     b.HasKey("BookingId");
@@ -209,9 +209,6 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ChairmanName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Cvr")
                         .HasColumnType("int");
 
@@ -230,26 +227,30 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.ToTable("Society");
                 });
 
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.SocietyMemberRelations", b =>
+            modelBuilder.Entity("MemberSociety", b =>
                 {
-                    b.Property<Guid>("MemberId")
+                    b.Property<Guid>("MembersMemberId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SocietyId")
+                    b.Property<Guid>("SocietiesSocietyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MemberId", "SocietyId");
+                    b.HasKey("MembersMemberId", "SocietiesSocietyId");
 
-                    b.HasIndex("SocietyId");
+                    b.HasIndex("SocietiesSocietyId");
 
-                    b.ToTable("SocietyMemberRelations");
+                    b.ToTable("MemberSociety");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Key", b =>
                 {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Member", null)
+                    b.HasOne("DAB_Assignment_2_v2.Models.Member", "Member")
                         .WithMany("Keys")
-                        .HasForeignKey("MemberId");
+                        .HasForeignKey("KeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.RoomBooking", b =>
@@ -260,7 +261,9 @@ namespace DAB_Assignment_2_v2.Migrations
 
                     b.HasOne("DAB_Assignment_2_v2.Models.Room", "Room")
                         .WithMany("BookingIds")
-                        .HasForeignKey("RoomKey", "RoomAdress");
+                        .HasForeignKey("RoomKey", "RoomAdress")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BookedBy");
 
@@ -282,30 +285,24 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Navigation("Municipality");
                 });
 
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.SocietyMemberRelations", b =>
+            modelBuilder.Entity("MemberSociety", b =>
                 {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Member", "Member")
-                        .WithMany("SocietyMemberRelations")
-                        .HasForeignKey("MemberId")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Member", null)
+                        .WithMany()
+                        .HasForeignKey("MembersMemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAB_Assignment_2_v2.Models.Society", "Society")
-                        .WithMany("SocietyMemberRelations")
-                        .HasForeignKey("SocietyId")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Society", null)
+                        .WithMany()
+                        .HasForeignKey("SocietiesSocietyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Member");
-
-                    b.Navigation("Society");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Member", b =>
                 {
                     b.Navigation("Keys");
-
-                    b.Navigation("SocietyMemberRelations");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Municipality", b =>
@@ -316,11 +313,6 @@ namespace DAB_Assignment_2_v2.Migrations
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Room", b =>
                 {
                     b.Navigation("BookingIds");
-                });
-
-            modelBuilder.Entity("DAB_Assignment_2_v2.Models.Society", b =>
-                {
-                    b.Navigation("SocietyMemberRelations");
                 });
 #pragma warning restore 612, 618
         }

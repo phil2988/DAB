@@ -4,14 +4,16 @@ using DAB_Assignment_2_v2.Architecture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211115123923_0.5_Manual_M2M")]
+    partial class _05_Manual_M2M
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +38,9 @@ namespace DAB_Assignment_2_v2.Migrations
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Key", b =>
                 {
                     b.Property<Guid>("KeyId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MemberId")
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoomAdress")
@@ -49,8 +50,6 @@ namespace DAB_Assignment_2_v2.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("KeyId");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("Key");
                 });
@@ -209,9 +208,6 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ChairmanName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Cvr")
                         .HasColumnType("int");
 
@@ -247,9 +243,13 @@ namespace DAB_Assignment_2_v2.Migrations
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Key", b =>
                 {
-                    b.HasOne("DAB_Assignment_2_v2.Models.Member", null)
+                    b.HasOne("DAB_Assignment_2_v2.Models.Member", "Member")
                         .WithMany("Keys")
-                        .HasForeignKey("MemberId");
+                        .HasForeignKey("KeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.RoomBooking", b =>
@@ -258,13 +258,11 @@ namespace DAB_Assignment_2_v2.Migrations
                         .WithMany()
                         .HasForeignKey("BookedByMemberId");
 
-                    b.HasOne("DAB_Assignment_2_v2.Models.Room", "Room")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Room", null)
                         .WithMany("BookingIds")
                         .HasForeignKey("RoomKey", "RoomAdress");
 
                     b.Navigation("BookedBy");
-
-                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Society", b =>

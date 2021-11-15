@@ -12,14 +12,15 @@ namespace DAB_Assignment_2_v2.Models
         public int Cvr { get; set; }
         public string Address {get;set;}
         
-        public Member Chairman{ get; set; }
+        public string ChairmanName{ get; set; }
 
         public Guid AcivityId { get; set; }
         public Activity Activity { get; set; }
 
         public Guid MuniciplaityId { get; set; }
         public Municipality Municipality { get; set; }
-    
-        public ICollection<Member> Members { get; set; }
+        
+        public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }
+
     }
 }

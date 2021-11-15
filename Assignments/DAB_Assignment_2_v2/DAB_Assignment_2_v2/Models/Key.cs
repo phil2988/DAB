@@ -9,11 +9,9 @@ namespace DAB_Assignment_2_v2.Models
     public class Key
     {
         public Guid KeyId { get; set; }
-
         public int RoomKey { get; set; }
         public string RoomAdress { get; set; }
 
-        public Member Member { get; set; }
-        public Guid MemberId { get; set; }
+        //public Room Room { get; set; }
     }
 }

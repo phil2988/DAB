@@ -4,14 +4,16 @@ using DAB_Assignment_2_v2.Architecture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211115131340_0.5_ezpz")]
+    partial class _05_ezpz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,9 +211,6 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ChairmanName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Cvr")
                         .HasColumnType("int");
 
@@ -258,13 +257,11 @@ namespace DAB_Assignment_2_v2.Migrations
                         .WithMany()
                         .HasForeignKey("BookedByMemberId");
 
-                    b.HasOne("DAB_Assignment_2_v2.Models.Room", "Room")
+                    b.HasOne("DAB_Assignment_2_v2.Models.Room", null)
                         .WithMany("BookingIds")
                         .HasForeignKey("RoomKey", "RoomAdress");
 
                     b.Navigation("BookedBy");
-
-                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("DAB_Assignment_2_v2.Models.Society", b =>

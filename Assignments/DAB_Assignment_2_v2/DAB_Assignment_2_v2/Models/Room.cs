@@ -13,7 +13,8 @@ namespace DAB_Assignment_2_v2.Models
         public string RoomAdress { get; set; }
 
         public int MaxMembers { get; set; }
-        public TimeSpan RoomAvailability { get; set; }
+        public TimeSpan RoomAvailabilityStart { get; set; }
+        public TimeSpan RoomAvailabilityEnd { get; set; }
 
         public Guid PropertyId { get; set; }
         public ICollection<RoomBooking> BookingIds { get; set; }

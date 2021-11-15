@@ -10,7 +10,8 @@ namespace DAB_Assignment_2_v2.Models
     {
         public Guid BookingId { get; set; }
 
-        public TimeSpan BookingSpan { get; set; }
+        public DateTime BookingStart { get; set; }
+        public DateTime BookingEnd { get; set; }
         public Member BookedBy { get; set; }
 
         public Room Room { get; set; }

@@ -8,12 +8,12 @@ namespace DAB_Assignment_2_v2.Models
         public Guid MemberId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int Cpr { get; set; }
+        public string Cpr { get; set; }
         public string PhoneNumber { get; set; }
         public string PassportNumber { get; set; }
         public bool IsChairman { get; set; }
 
-        public ICollection<Society> Societies { get; set; }
+        public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }
 
         public Guid KeyId {get; set;}
         ICollection<Key> keys;
@@ -25,7 +25,7 @@ namespace DAB_Assignment_2_v2.Models
 
         public bool ValidateChairmanStatus(Society s)
         {
-            if( s.Chairman == null &&
+            if( s.ChairmanName == "" &&
                 Address != null && Address != "" && 
                 PhoneNumber != null && PhoneNumber != "" && 
                 PassportNumber != null && PassportNumber != "")
