@@ -21,14 +21,19 @@ namespace DAB_Assignment_2_v2
 
         public void SeedData()
         {
-            dbContext.Key.RemoveRange(dbContext.Key);
-            dbContext.Member.RemoveRange(dbContext.Member);
-            dbContext.Municipality.RemoveRange(dbContext.Municipality);
-            dbContext.RoomBooking.RemoveRange(dbContext.RoomBooking);
-            dbContext.RoomProperties.RemoveRange(dbContext.RoomProperties);
-            dbContext.Room.RemoveRange(dbContext.Room);
-            dbContext.Activity.RemoveRange(dbContext.Activity);
-            dbContext.Society.RemoveRange(dbContext.Society);
+            dbContext.Database.EnsureCreated();
+            try
+            {
+                dbContext.Key.RemoveRange(dbContext.Key);
+                dbContext.Member.RemoveRange(dbContext.Member);
+                dbContext.Municipality.RemoveRange(dbContext.Municipality);
+                dbContext.RoomBooking.RemoveRange(dbContext.RoomBooking);
+                dbContext.RoomProperties.RemoveRange(dbContext.RoomProperties);
+                dbContext.Room.RemoveRange(dbContext.Room);
+                dbContext.Activity.RemoveRange(dbContext.Activity);
+                dbContext.Society.RemoveRange(dbContext.Society);
+            }
+            catch { }
 
             #region Data
 
@@ -115,40 +120,51 @@ namespace DAB_Assignment_2_v2
 
             #endregion Activity
 
-            #region Society
+            #region Municipality 
 
-            dbContext.Society.Add(
-                new Society {
-                    Cvr = 11111111,
-                    Address = "Manchester alé 231",
-                    AcivityId = dbContext.Activity
-                        .FirstOrDefault(e => e.AcitivtyName == "Football")
-                        .ActivityId,
-                    ChairmanName = "Devon L. Dixon"
-                });
+            dbContext.Municipality.AddRange(
+                new Municipality
+                {
+                    Societies = dbContext.Society.ToList()
+                }
+            );
             dbContext.SaveChanges();
 
-            dbContext.Society.Add(
+            #endregion Municipality
+
+            #region Society
+
+            dbContext.Society.AddRange(
+                new Society {
+                    
+                    Cvr = 11111111,
+                    Address = "Manchester alé 231",
+                    ActivityId = dbContext.Activity
+                        .FirstOrDefault(e => e.AcitivtyName == "Football")
+                        .ActivityId,
+                    ChairmanName = "Devon L. Dixon",
+                    //MunicipalityId = dbContext.Municipality.First().MunicipalityId
+                },
                 new Society
                 {
                     Cvr = 22222222,
                     Address = "Washington Street 11",
-                    AcivityId = dbContext.Activity
+                    ActivityId = dbContext.Activity
                         .FirstOrDefault(e => e.AcitivtyName == "Football")
                         .ActivityId,
-                    ChairmanName = "Brian B. Brooks"
-                });
-            dbContext.SaveChanges();
-
-            dbContext.Society.Add(
+                    ChairmanName = "Brian B. Brooks",
+                    //MunicipalityId = dbContext.Municipality.First().MunicipalityId
+                },
                 new Society
                 {
                     Cvr = 33333333,
                     Address = "No Creativity street 69",
-                    AcivityId = dbContext.Activity
+                    ActivityId = dbContext.Activity
                         .FirstOrDefault(e => e.AcitivtyName == "Chess")
-                        .ActivityId
+                        .ActivityId,
+                    //MunicipalityId = dbContext.Municipality.First().MunicipalityId
                 });
+
             dbContext.SaveChanges();
 
             #endregion Society
@@ -166,19 +182,9 @@ namespace DAB_Assignment_2_v2
                 }
             );
 
-            #endregion SMR
-
-            #region Municipality 
-
-            dbContext.Municipality.AddRange(
-                new Municipality
-                {
-                    Societies = dbContext.Society.ToList()
-                }
-            );
             dbContext.SaveChanges();
 
-            #endregion Municipality
+            #endregion SMR
 
             #region RoomBooking
 

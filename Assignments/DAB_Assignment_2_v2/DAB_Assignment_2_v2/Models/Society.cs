@@ -14,7 +14,7 @@ namespace DAB_Assignment_2_v2.Models
         
         public string ChairmanName{ get; set; }
 
-        public Guid AcivityId { get; set; }
+        public Guid ActivityId { get; set; }
         public Activity Activity { get; set; }
         
         public ICollection<SocietyMemberRelations> SocietyMemberRelations { get; set; }

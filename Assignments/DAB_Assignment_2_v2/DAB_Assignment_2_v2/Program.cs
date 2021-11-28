@@ -24,7 +24,7 @@ namespace DAB_Assignment_2_v2
                     society.Cvr, 
                     dbcontext
                         .Activity
-                        .SingleOrDefault(a => a.ActivityId == society.AcivityId)
+                        .SingleOrDefault(a => a.ActivityId == society.ActivityId)
                         .AcitivtyName
                 );
             }

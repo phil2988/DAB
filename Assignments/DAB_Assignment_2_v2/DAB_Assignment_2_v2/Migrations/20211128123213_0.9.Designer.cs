@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211115143604_0.6_FinalTouch")]
-    partial class _06_FinalTouch
+    [Migration("20211128123213_0.9")]
+    partial class _09
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -202,10 +202,7 @@ namespace DAB_Assignment_2_v2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AcivityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ActivityId")
+                    b.Property<Guid>("ActivityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
@@ -217,7 +214,7 @@ namespace DAB_Assignment_2_v2.Migrations
                     b.Property<int>("Cvr")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("MunicipalityId")
+                    b.Property<Guid>("MunicipalityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SocietyId");
@@ -270,11 +267,15 @@ namespace DAB_Assignment_2_v2.Migrations
                 {
                     b.HasOne("DAB_Assignment_2_v2.Models.Activity", "Activity")
                         .WithMany()
-                        .HasForeignKey("ActivityId");
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAB_Assignment_2_v2.Models.Municipality", null)
                         .WithMany("Societies")
-                        .HasForeignKey("MunicipalityId");
+                        .HasForeignKey("MunicipalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Activity");
                 });

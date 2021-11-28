@@ -4,14 +4,16 @@ using DAB_Assignment_2_v2.Architecture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAB_Assignment_2_v2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211128120932_0.7_Municipality_GUID")]
+    partial class _07_Municipality_GUID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +93,9 @@ namespace DAB_Assignment_2_v2.Migrations
                 {
                     b.Property<Guid>("MunicipalityId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SocietyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MunicipalityId");
@@ -197,7 +202,10 @@ namespace DAB_Assignment_2_v2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ActivityId")
+                    b.Property<Guid>("AcivityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ActivityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
@@ -262,9 +270,7 @@ namespace DAB_Assignment_2_v2.Migrations
                 {
                     b.HasOne("DAB_Assignment_2_v2.Models.Activity", "Activity")
                         .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ActivityId");
 
                     b.HasOne("DAB_Assignment_2_v2.Models.Municipality", null)
                         .WithMany("Societies")

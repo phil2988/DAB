@@ -2,7 +2,7 @@
 
 namespace DAB_Assignment_2_v2.Migrations
 {
-    public partial class _04_Done : Migration
+    public partial class _07_Municipality_GUID : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
