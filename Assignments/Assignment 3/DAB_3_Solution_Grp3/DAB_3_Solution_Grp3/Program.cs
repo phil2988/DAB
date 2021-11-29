@@ -10,7 +10,7 @@ namespace DAB_3_Solution_Grp3
             DbHandler dbHandler = new DbHandler();
             dbHandler.Seed();
 
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
         }
     }
 }

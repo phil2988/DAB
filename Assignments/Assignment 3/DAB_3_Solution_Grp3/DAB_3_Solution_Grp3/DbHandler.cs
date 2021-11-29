@@ -16,7 +16,7 @@ namespace DAB_3_Solution_Grp3
         // Db identification
         private readonly MongoClient client;
         private readonly IMongoDatabase database;
-        private readonly string collectionName = "DabAssignment3";
+        private readonly string DbName = "DabAssignment3";
 
         // Collections
         private IMongoCollection<Municipality> Municipalities;
@@ -33,13 +33,15 @@ namespace DAB_3_Solution_Grp3
         public DbHandler()
         {
             // Setup connection
+            Console.WriteLine("Creating MongoDb Client...\n");
             client = new MongoClient(connString);
 
             // Reset data
-            //client.DropDatabase(collectionName);
-            database = client.GetDatabase(collectionName);
+            Console.WriteLine("Fetching database \"" + DbName + "\"...\n");
+            database = client.GetDatabase(DbName);
 
             // Set Reference to collections
+            Console.WriteLine("Saving references to collections...\n");
             Municipalities = database.GetCollection<Municipality>("Municipalities");
             Societies = database.GetCollection<Society>("Societies");
             Activities = database.GetCollection<Activity>("Activities");
@@ -48,16 +50,33 @@ namespace DAB_3_Solution_Grp3
             Rooms = database.GetCollection<Room>("Rooms");
             RoomProperties = database.GetCollection<RoomProperty>("RoomProperties");
             RoomBookings = database.GetCollection<RoomBooking>("RoomBookings");
-            
+
+            Console.WriteLine("Setup Complete!");
         }
 
         public static void Insert<T>(IMongoCollection<T> collection, T input)
         {
-            var result = collection.InsertOneAsync(input);   
+            Console.WriteLine("Inserting " + input.ToString() + "...\n");
+
+            Task.Run(() =>
+            {
+                collection.InsertOne(input);
+            }).Wait();
+
+            Console.WriteLine("Finished inserting!\n");
         }
 
         public void Seed()
         {
+            Console.WriteLine("Clearing collections...");
+
+            foreach (var col in database.ListCollectionNames().ToList())
+            {
+                database.DropCollection(col);
+            }
+
+            Console.WriteLine("Seeding Database...\n");
+
             Insert<Municipality>(Municipalities,
                 new Municipality
                 {
@@ -76,10 +95,10 @@ namespace DAB_3_Solution_Grp3
             );
 
             Insert<Activity>(Activities,
-                new Activity 
-                { 
-                    ActivityId = Guid.NewGuid(), 
-                    ActivityName = "Chess" 
+                new Activity
+                {
+                    ActivityId = Guid.NewGuid(),
+                    ActivityName = "Chess"
                 }
             );
 
@@ -120,9 +139,9 @@ namespace DAB_3_Solution_Grp3
                     PropertyId = Guid.NewGuid(),
                     Chairs = true,
                     CoffeeMachine = true,
-                    SoccerGoals =false,
+                    SoccerGoals = false,
                     SoundSystem = true,
-                    Tables = false, 
+                    Tables = false,
                     Toilet = false,
                     Water = false,
                     Whiteboard = true,
@@ -137,9 +156,10 @@ namespace DAB_3_Solution_Grp3
                     BookedBy = new Member { },
                     BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
                     BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
-                } 
+                }
             );
         }
+
 
         #region Tables
 
