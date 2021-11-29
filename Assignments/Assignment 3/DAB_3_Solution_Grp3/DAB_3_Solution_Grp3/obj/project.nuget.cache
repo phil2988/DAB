@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "7J9wr+h5vuBUTyyGgIA4vFq1OIR8S5xfGGxVtrJbLNQRa67Qx5qhdxnMHDzPctdnCEWFYBrtUZm+SpqdHrsVYw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\phill\\Desktop\\skole\\DAB\\Assignments\\Assignment 3\\DAB_3_Solution_Grp3\\DAB_3_Solution_Grp3\\DAB_3_Solution_Grp3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\phill\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\mongodb.bson\\2.14.0\\mongodb.bson.2.14.0.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\mongodb.driver\\2.14.0\\mongodb.driver.2.14.0.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\mongodb.driver.core\\2.14.0\\mongodb.driver.core.2.14.0.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\mongodb.libmongocrypt\\1.3.0\\mongodb.libmongocrypt.1.3.0.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\phill\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
