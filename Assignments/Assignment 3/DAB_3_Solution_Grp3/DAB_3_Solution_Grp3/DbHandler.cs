@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
-
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAB_3_Solution_Grp3
 {
@@ -16,6 +16,7 @@ namespace DAB_3_Solution_Grp3
         // Db identification
         private readonly MongoClient client;
         private readonly IMongoDatabase database;
+        private readonly string collectionName = "DabAssignment3";
 
         // Collections
         private IMongoCollection<Municipality> Municipalities;
@@ -31,8 +32,14 @@ namespace DAB_3_Solution_Grp3
 
         public DbHandler()
         {
+            // Setup connection
             client = new MongoClient(connString);
-            database = client.GetDatabase("DabAssignment3");
+
+            // Reset data
+            //client.DropDatabase(collectionName);
+            database = client.GetDatabase(collectionName);
+
+            // Set Reference to collections
             Municipalities = database.GetCollection<Municipality>("Municipalities");
             Societies = database.GetCollection<Society>("Societies");
             Activities = database.GetCollection<Activity>("Activities");
@@ -41,19 +48,106 @@ namespace DAB_3_Solution_Grp3
             Rooms = database.GetCollection<Room>("Rooms");
             RoomProperties = database.GetCollection<RoomProperty>("RoomProperties");
             RoomBookings = database.GetCollection<RoomBooking>("RoomBookings");
+            
+        }
+
+        public static void Insert<T>(IMongoCollection<T> collection, T input)
+        {
+            var result = collection.InsertOneAsync(input);   
         }
 
         public void Seed()
         {
-            
+            Insert<Municipality>(Municipalities,
+                new Municipality
+                {
+                    MunicipalityId = Guid.NewGuid()
+                }
+            );
+
+            Insert<Society>(Societies, 
+                new Society
+                {
+                    SocietyId = Guid.NewGuid(),
+                    Cvr = 19582858,
+                    Adress = "Adress",
+                    ChairmanName = ""
+                }
+            );
+
+            Insert<Activity>(Activities,
+                new Activity 
+                { 
+                    ActivityId = Guid.NewGuid(), 
+                    ActivityName = "Chess" 
+                }
+            );
+
+            Insert<Member>(Members,
+                new Member
+                {
+                    MemberId = Guid.NewGuid(),
+                    Name = "Thomas Jonson",
+                    Adress = "Manchester Street 231",
+                    Cpr = "1232451052",
+                    IsChairman = false,
+                    PhoneNumber = "27756235",
+                    PassportNumber = "112452124"
+                }
+            );
+
+            Insert<Key>(Keys,
+                new Key
+                {
+                    KeyId = Guid.NewGuid()
+                }
+            );
+
+            Insert<Room>(Rooms,
+                new Room
+                {
+                    RoomKey = 1,
+                    RoomAdress = "Old Werner alé 21",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(15, 0, 0)
+                }
+            );
+
+            Insert<RoomProperty>(RoomProperties,
+                new RoomProperty
+                {
+                    PropertyId = Guid.NewGuid(),
+                    Chairs = true,
+                    CoffeeMachine = true,
+                    SoccerGoals =false,
+                    SoundSystem = true,
+                    Tables = false, 
+                    Toilet = false,
+                    Water = false,
+                    Whiteboard = true,
+                    Wifi = true
+                }
+            );
+
+            Insert<RoomBooking>(RoomBookings,
+                new RoomBooking
+                {
+                    BookingId = Guid.NewGuid(),
+                    BookedBy = new Member { },
+                    BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
+                    BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
+                } 
+            );
         }
 
         #region Tables
 
         internal class Municipality
         {
+            [BsonId]
             public Guid MunicipalityId { get; set; }
-            public Guid SocietyId { get; set; }
+            //public Guid SocietyId { get; set; }
         }
         internal class Society
         {
@@ -79,7 +173,7 @@ namespace DAB_3_Solution_Grp3
         }
         internal class Key
         {
-            public int KeyId { get; set; }
+            public Guid KeyId { get; set; }
         }
         internal class Room
         {
@@ -91,7 +185,7 @@ namespace DAB_3_Solution_Grp3
         }
         internal class RoomProperty
         {
-            public int PropertyId { get; set; }
+            public Guid PropertyId { get; set; }
             public bool CoffeeMachine { get; set; }
             public bool Water { get; set; }
             public bool Toilet { get; set; }
