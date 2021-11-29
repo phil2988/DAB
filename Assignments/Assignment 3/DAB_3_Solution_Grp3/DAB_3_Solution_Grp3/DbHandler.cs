@@ -51,12 +51,12 @@ namespace DAB_3_Solution_Grp3
             RoomProperties = database.GetCollection<RoomProperty>("RoomProperties");
             RoomBookings = database.GetCollection<RoomBooking>("RoomBookings");
 
-            Console.WriteLine("Setup Complete!");
+            Console.WriteLine("Setup Complete!\n");
         }
 
         public static void Insert<T>(IMongoCollection<T> collection, T input)
         {
-            Console.WriteLine("Inserting " + input.ToString() + "...\n");
+            Console.WriteLine("Inserting data...\n");
 
             Task.Run(() =>
             {
@@ -66,9 +66,34 @@ namespace DAB_3_Solution_Grp3
             Console.WriteLine("Finished inserting!\n");
         }
 
+        public static void Insert<T>(IMongoCollection<T> collection, List<T> inputs)
+        {
+            Console.WriteLine("Inserting data...\n");
+
+            foreach (var obj in inputs)
+            {
+                Task.Run(() =>
+                {
+                    collection.InsertOne(obj);
+                }).Wait();
+            }
+
+            Console.WriteLine("Finished inserting!\n");
+        }
+
+        public IMongoCollection<T> GetCollection<T>(string collection)
+        {
+            return database.GetCollection<T>(collection);
+        }
+
+        public List<T> GetData<T>(IMongoCollection<T> collection) 
+        {
+            return collection.Find(_ => true).ToList();
+        }
+
         public void Seed()
         {
-            Console.WriteLine("Clearing collections...");
+            Console.WriteLine("Clearing collections...\n");
 
             foreach (var col in database.ListCollectionNames().ToList())
             {
@@ -77,66 +102,260 @@ namespace DAB_3_Solution_Grp3
 
             Console.WriteLine("Seeding Database...\n");
 
-            Insert<Municipality>(Municipalities,
-                new Municipality
-                {
-                    MunicipalityId = Guid.NewGuid()
-                }
-            );
-
-            Insert<Society>(Societies, 
-                new Society
-                {
-                    SocietyId = Guid.NewGuid(),
-                    Cvr = 19582858,
-                    Adress = "Adress",
-                    ChairmanName = ""
-                }
-            );
-
-            Insert<Activity>(Activities,
+            Insert<Activity>(Activities, new List<Activity> 
+            {
                 new Activity
                 {
-                    ActivityId = Guid.NewGuid(),
                     ActivityName = "Chess"
+                },
+                new Activity
+                {
+                    ActivityName = "Soccer"
+                },
+                new Activity
+                {
+                    ActivityName = "Golf"
                 }
-            );
+            });
 
-            Insert<Member>(Members,
+            Insert<Key>(Keys, new List<Key>{
+                new Key { RoomAdress = "920 Dawson Drive", RoomNumber = 1},
+                new Key { RoomAdress = "920 Dawson Drive", RoomNumber = 2},
+                new Key { RoomAdress = "920 Dawson Drive", RoomNumber = 3},
+                new Key { RoomAdress = "920 Dawson Drive", RoomNumber = 4},
+                new Key { RoomAdress = "1553 Cheshire Road", RoomNumber = 1},
+                new Key { RoomAdress = "1553 Cheshire Road", RoomNumber = 2},
+                new Key { RoomAdress = "1553 Cheshire Road", RoomNumber = 3},
+                new Key { RoomAdress = "77 Arron Smith Drive", RoomNumber = 1},
+            });
+
+            Insert<Member>(Members, new List<Member>
+            {
                 new Member
                 {
-                    MemberId = Guid.NewGuid(),
-                    Name = "Thomas Jonson",
-                    Adress = "Manchester Street 231",
+                    Name = "Eric K. Finkle",
+                    Adress = "3796 Saints Alley",
                     Cpr = "1232451052",
-                    IsChairman = false,
+                    IsChairman = true,
                     PhoneNumber = "27756235",
-                    PassportNumber = "112452124"
-                }
-            );
-
-            Insert<Key>(Keys,
-                new Key
+                    PassportNumber = "112452124",
+                    Keys = Keys.Find(k => k.RoomAdress == "920 Dawson Drive").ToList()
+                },
+                new Member
                 {
-                    KeyId = Guid.NewGuid()
+                    Name = "Luis P. Green",
+                    Adress = "2348 Saint Marys Avenue",
+                    Cpr = "2868283960",
+                    IsChairman = true,
+                    PhoneNumber = "66234256",
+                    PassportNumber = "621357894",
+                    Keys = Keys.Find(k => k.RoomAdress == "1553 Cheshire Road").ToList()
+                },
+                new Member
+                {
+                    Name = "Gerald M. Kahl",
+                    Adress = "1445 Marshall Street",
+                    Cpr = "5485231658",
+                    IsChairman = true,
+                    PhoneNumber = "85625369",
+                    PassportNumber = "152485695",
+                    Keys = Keys.Find(k => k.RoomAdress == "77 Arron Smith Drive").ToList()
+                },
+                new Member
+                {
+                    Name = "John E. Langlois",
+                    Adress = "2158 Little Street",
+                    Cpr = "8521645872",
+                    IsChairman = false,
+                },
+                new Member
+                {
+                    Name = "James E. Brotherton",
+                    Adress = "3854 Linda Street",
+                    Cpr = "6659482154",
+                    IsChairman = false,
+                },
+                new Member
+                {
+                    Name = "Ben S. Alegria",
+                    Adress = "2125 Richland Avenue",
+                    Cpr = "1145788545",
+                    IsChairman = false,
                 }
-            );
+            });
 
-            Insert<Room>(Rooms,
+            Insert<Society>(Societies, new List<Society>
+            {
+                new Society
+                {
+                    Cvr = 11111111,
+                    Adress = "Adress",
+                    ChairmanName = "Eric K. Finkle",
+                    Activity = Activities.Find(a => a.ActivityName == "Golf").FirstOrDefault(),
+                    Members = new List<Member>()
+                    {
+                        Members.Find(m => m.Name == "Eric K. Finkle").FirstOrDefault(),
+                        Members.Find(m => m.Name == "John E. Langlois").FirstOrDefault(),
+                        Members.Find(m => m.Name == "Ben S. Alegria").FirstOrDefault()
+                    }
+                },
+                new Society
+                {
+                    Cvr = 22222222,
+                    Adress = "Adress",
+                    ChairmanName = "Luis P. Green",
+                    Activity = Activities.Find(a => a.ActivityName == "Soccer").FirstOrDefault(),
+                    Members = new List<Member>()
+                    {
+                        Members.Find(m => m.Name == "Luis P. Green").FirstOrDefault(),
+                        Members.Find(m => m.Name == "James E. Brotherton").FirstOrDefault(),
+                        Members.Find(m => m.Name == "Ben S. Alegria").FirstOrDefault()
+                    }
+                },
+                new Society
+                {
+                    Cvr = 33333333,
+                    Adress = "Adress",
+                    ChairmanName = "Gerald M. Kahl",
+                    Activity = Activities.Find(a => a.ActivityName == "Chess").FirstOrDefault(),
+                    Members = new List<Member>()
+                    {
+                        Members.Find(m => m.Name == "Gerald M. Kahl").FirstOrDefault(),
+                        Members.Find(m => m.Name == "John E. Langlois").FirstOrDefault(),
+                        Members.Find(m => m.Name == "James E. Brotherton").FirstOrDefault()
+                    }
+                }
+            });
+
+            Insert<Municipality>(Municipalities, new Municipality {
+                    Societies = new List<Society>
+                    {
+                        Societies.Find(s => s.Cvr == 11111111).FirstOrDefault(),
+                        Societies.Find(s => s.Cvr == 22222222).FirstOrDefault(),
+                        Societies.Find(s => s.Cvr == 33333333).FirstOrDefault()
+                    }
+                });
+
+            Insert<Room>(Rooms, new List<Room>
+            {
                 new Room
                 {
-                    RoomKey = 1,
-                    RoomAdress = "Old Werner alé 21",
+                    RoomNumber = 1,
+                    RoomAdress = "920 Dawson Drive",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(15, 0, 0),
+                    RoomBookings = new List<RoomBooking>()
+                    {
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Eric K. Finkle").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
+                            BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
+                        }
+                    }
+                },
+                new Room
+                {
+                    RoomNumber = 2,
+                    RoomAdress = "920 Dawson Drive",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(15, 0, 0),
+                    RoomBookings = new List<RoomBooking>()
+                    {
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Eric K. Finkle").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
+                            BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
+                        }
+                    }
+                },
+                new Room
+                {
+                    RoomNumber = 3,
+                    RoomAdress = "920 Dawson Drive",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(15, 0, 0),
+                    RoomBookings = new List<RoomBooking>()
+                    {
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Eric K. Finkle").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
+                            BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
+                        }
+                    }
+                },
+                new Room
+                {
+                    RoomNumber = 4,
+                    RoomAdress = "920 Dawson Drive",
                     MaxMembers = 15,
                     RoomAvailabilityStart = new TimeSpan(9, 0, 0),
                     RoomAvailabilityEnd = new TimeSpan(15, 0, 0)
-                }
-            );
+                },
+                new Room
+                {
+                    RoomNumber = 1,
+                    RoomAdress = "1553 Cheshire Road",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(18, 0, 0)
+                },
+                new Room
+                {
+                    RoomNumber = 2,
+                    RoomAdress = "1553 Cheshire Road",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(18, 0, 0),
+                    RoomBookings = new List<RoomBooking>()
+                    {
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Luis P. Green").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 12, 15, 10, 0, 0),
+                            BookingEnd = new DateTime(2021, 12, 15, 17, 0, 0)
+                        },
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Luis P. Green").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 12, 16, 10, 0, 0),
+                            BookingEnd = new DateTime(2021, 12, 16, 17, 0, 0)
+                        },
+                        new RoomBooking
+                        {
+                            BookedBy = Members.Find(m => m.Name == "Luis P. Green").FirstOrDefault(),
+                            BookingStart = new DateTime(2021, 12, 17, 10, 0, 0),
+                            BookingEnd = new DateTime(2021, 12, 17, 17, 0, 0)
+                        }
+                    }
+                },
+                new Room
+                {
+                    RoomNumber = 3,
+                    RoomAdress = "1553 Cheshire Road",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(9, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(18, 0, 0)
+                },
+                new Room
+                {
+                    RoomNumber = 1,
+                    RoomAdress = "77 Arron Smith Drive",
+                    MaxMembers = 15,
+                    RoomAvailabilityStart = new TimeSpan(10, 0, 0),
+                    RoomAvailabilityEnd = new TimeSpan(13, 0, 0)
+                },
+            });
 
-            Insert<RoomProperty>(RoomProperties,
+            Insert<RoomProperty>(RoomProperties, new List<RoomProperty>()
+            {
                 new RoomProperty
                 {
-                    PropertyId = Guid.NewGuid(),
                     Chairs = true,
                     CoffeeMachine = true,
                     SoccerGoals = false,
@@ -146,83 +365,33 @@ namespace DAB_3_Solution_Grp3
                     Water = false,
                     Whiteboard = true,
                     Wifi = true
-                }
-            );
-
-            Insert<RoomBooking>(RoomBookings,
-                new RoomBooking
+                },
+                new RoomProperty
                 {
-                    BookingId = Guid.NewGuid(),
-                    BookedBy = new Member { },
-                    BookingStart = new DateTime(2021, 11, 30, 12, 0, 0),
-                    BookingEnd = new DateTime(2021, 11, 30, 15, 0, 0)
-                }
-            );
+                    Chairs = true,
+                    CoffeeMachine = true,
+                    SoccerGoals = false,
+                    SoundSystem = false,
+                    Tables = false,
+                    Toilet = true,
+                    Water = true,
+                    Whiteboard = false,
+                    Wifi = true
+                },
+                new RoomProperty
+                {
+                    Chairs = false,
+                    CoffeeMachine = true,
+                    SoccerGoals = true,
+                    SoundSystem = true,
+                    Tables = true,
+                    Toilet = false,
+                    Water = true,
+                    Whiteboard = false,
+                    Wifi = false
+                },
+            });
         }
 
-
-        #region Tables
-
-        internal class Municipality
-        {
-            [BsonId]
-            public Guid MunicipalityId { get; set; }
-            //public Guid SocietyId { get; set; }
-        }
-        internal class Society
-        {
-            public Guid SocietyId { get; set; }
-            public int Cvr { get; set; }
-            public string Adress { get; set; }
-            public string ChairmanName { get; set; }
-        }
-        internal class Activity
-        {
-            public Guid ActivityId { get; set; }
-            public string ActivityName { get; set; }
-        }
-        internal class Member
-        {
-            public Guid MemberId { get; set; }
-            public string Name { get; set; }
-            public string Adress { get; set; }
-            public string Cpr { get; set; }
-            public bool IsChairman { get; set; }
-            public string PhoneNumber { get; set; }
-            public string PassportNumber { get; set; }
-        }
-        internal class Key
-        {
-            public Guid KeyId { get; set; }
-        }
-        internal class Room
-        {
-            public int RoomKey { get; set; }
-            public string RoomAdress { get; set; }
-            public int MaxMembers { get; set; }
-            public TimeSpan RoomAvailabilityStart { get; set; }
-            public TimeSpan RoomAvailabilityEnd { get; set; }
-        }
-        internal class RoomProperty
-        {
-            public Guid PropertyId { get; set; }
-            public bool CoffeeMachine { get; set; }
-            public bool Water { get; set; }
-            public bool Toilet { get; set; }
-            public bool Chairs { get; set; }
-            public bool Wifi { get; set; }
-            public bool Whiteboard { get; set; }
-            public bool SoccerGoals { get; set; }
-            public bool Tables { get; set; }
-            public bool SoundSystem { get; set; }
-        }
-        internal class RoomBooking
-        {
-            public Guid BookingId { get; set; }
-            public DateTime BookingStart { get; set; }
-            public DateTime BookingEnd { get; set; }
-            public Member BookedBy { get; set; }
-        }
-        #endregion Tables
     }
 }
