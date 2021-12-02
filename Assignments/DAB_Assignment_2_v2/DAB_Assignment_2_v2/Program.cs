@@ -14,8 +14,19 @@ namespace DAB_Assignment_2_v2
 
             dbhandler.SeedData();
 
+            // Get a list of rooms and their adress
+            Console.WriteLine("Getting all rooms with their adresses\n");
+
+            var rooms = dbcontext.Room.OrderBy(r => r.RoomAdress);
+            foreach (var room in rooms)
+            {
+                Console.WriteLine("On adress \"{0}\" is room \"{1}\"",
+                    room.RoomAdress, room.RoomKey);
+            }
+            Console.WriteLine();
+
             // Get all societies sorted by their activity
-            Console.WriteLine("All Societies sorted by their activity: \n");
+            Console.WriteLine("Getting all societies sorted by their activity: \n");
 
             var societies = dbcontext.Society.OrderBy(s => s.Activity.AcitivtyName).ToList();
             foreach (var society in societies)
@@ -31,7 +42,8 @@ namespace DAB_Assignment_2_v2
             Console.WriteLine();
 
             // Get a list of all booked rooms
-
+            Console.WriteLine("Getting all booked rooms\n");
+            
             foreach (var booking in dbcontext.RoomBooking)
             {
                 int roomKey = 0;

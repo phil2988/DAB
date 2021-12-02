@@ -9,8 +9,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAB_3_Solution_Grp3
 {
-
-
     class DbHandler
     {
         // Db identification
@@ -68,7 +66,7 @@ namespace DAB_3_Solution_Grp3
 
         public static void Insert<T>(IMongoCollection<T> collection, List<T> inputs)
         {
-            Console.WriteLine("Inserting data...\n");
+            Console.WriteLine("Inserting data... \n");
 
             foreach (var obj in inputs)
             {
@@ -189,7 +187,7 @@ namespace DAB_3_Solution_Grp3
                 new Society
                 {
                     Cvr = 11111111,
-                    Adress = "Adress",
+                    Adress = "3939 Dark Hollow Road",
                     ChairmanName = "Eric K. Finkle",
                     Activity = Activities.Find(a => a.ActivityName == "Golf").FirstOrDefault(),
                     Members = new List<Member>()
@@ -202,7 +200,7 @@ namespace DAB_3_Solution_Grp3
                 new Society
                 {
                     Cvr = 22222222,
-                    Adress = "Adress",
+                    Adress = "3963 Timberbrook Lane",
                     ChairmanName = "Luis P. Green",
                     Activity = Activities.Find(a => a.ActivityName == "Soccer").FirstOrDefault(),
                     Members = new List<Member>()
@@ -215,7 +213,7 @@ namespace DAB_3_Solution_Grp3
                 new Society
                 {
                     Cvr = 33333333,
-                    Adress = "Adress",
+                    Adress = "2204 Hillview Street",
                     ChairmanName = "Gerald M. Kahl",
                     Activity = Activities.Find(a => a.ActivityName == "Chess").FirstOrDefault(),
                     Members = new List<Member>()
